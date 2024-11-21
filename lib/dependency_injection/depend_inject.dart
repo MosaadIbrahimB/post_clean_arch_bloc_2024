@@ -1,21 +1,5 @@
-import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package_export.dart';
 import 'package:http/http.dart' as http;
-
-import '../core/network/network_info.dart';
-import '../posts/data/data_source/local/post_local_data_source.dart';
-import '../posts/data/data_source/local/post_local_impl_shared_pref.dart';
-import '../posts/data/data_source/remote/post_remote_data_source.dart';
-import '../posts/data/data_source/remote/post_remote_impl_http.dart';
-import '../posts/data/repository/posts_repository_imp.dart';
-import '../posts/domain/repository/posts_repository.dart';
-import '../posts/domain/use_case/add_post.dart';
-import '../posts/domain/use_case/delete_post.dart';
-import '../posts/domain/use_case/get_all_post.dart';
-import '../posts/domain/use_case/update_post.dart';
-import '../posts/presentation/logic/add_delete_update_post/add_delete_update_bloc.dart';
-import '../posts/presentation/logic/get_post/post_bloc.dart';
 
 final sl = GetIt.instance;
 
