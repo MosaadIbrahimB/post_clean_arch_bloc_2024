@@ -22,7 +22,8 @@ class PostsRepositoryImp implements PostsRepository {
   Future<Either<Failure, List<PostEntity>>> getAllPost() async {
     if (await networkInfo.isConnection()) {
       try {
-        final post = await postsRemoteDataSource.getPost();
+        final List<PostModel> post = await postsRemoteDataSource.getPost();
+
         await postsLocalDataSource.cachedPost(post);
         return right(post);
       } on ServerException {
@@ -70,13 +71,3 @@ class PostsRepositoryImp implements PostsRepository {
   }
 
 }
-// if (await networkInfo.isConnection()) {
-//   try {
-//     return Right(await postsRemoteDataSource.deletePost(postId));
-//   } on ServerException {
-//     return left(ServerFailure());
-//   }
-// } else {
-//   return left(OfflineFailure());
-//
-// }

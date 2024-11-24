@@ -66,11 +66,12 @@ class PostRemoteImplHttp implements PostsRemoteDataSource {
 
   @override
   Future<List<PostModel>> getPost() async {
+
     http.Response response = await client.get(Uri.parse("$baseUrl/posts/"),
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      List<Map<String, dynamic>> listJson = jsonDecode(response.body);
+      List<dynamic> listJson = jsonDecode(response.body);
       List<PostModel> listPostModel = listJson
           .map(
             (e) => PostModel.fromJson(e),

@@ -20,7 +20,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       }
 
       if (event is RefreshEvent) {
+
         emit(LoadingState());
+        await Future.delayed(const Duration(seconds: 2));
         Either<Failure, List<PostEntity>> response = await getAllPost();
         emit(_getState(response));
       }

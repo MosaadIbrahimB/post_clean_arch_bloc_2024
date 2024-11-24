@@ -8,8 +8,7 @@ import '../../../../core/error/failure.dart';
 import 'add_delete_update_event.dart';
 import 'add_delete_update_state.dart';
 
-class AddDeleteUpdatePost
-    extends Bloc<AddDeleteUpdateEvent, AddDeleteUpdateState> {
+class AddDeleteUpdatePost    extends Bloc<AddDeleteUpdateEvent, AddDeleteUpdateState> {
   final AddPost addPost;
   final DeletePost deletePost;
   final UpdatePost updatePost;

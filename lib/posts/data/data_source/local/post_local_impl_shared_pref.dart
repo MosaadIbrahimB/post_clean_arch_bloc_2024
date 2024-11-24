@@ -15,7 +15,7 @@ class PostLocalImplSharedPref implements PostsLocalDataSource {
 
   @override
   Future<Unit> cachedPost(List<PostModel> post) {
-    List<Map<String, dynamic>> jsonList = post.map((e) => e.toJson()).toList();
+    List<dynamic> jsonList = post.map((e) => e.toJson()).toList();
     String stringList = jsonEncode(jsonList);
     sharedPreferences.setString(cachedKey, stringList);
 
@@ -25,11 +25,16 @@ class PostLocalImplSharedPref implements PostsLocalDataSource {
   @override
   Future<List<PostModel>> getCached() {
     String? stringList = sharedPreferences.getString(cachedKey);
+
+
     if (stringList != null) {
-      List<Map<String, dynamic>> jsonList = jsonDecode(stringList);
+      List<dynamic> jsonList = jsonDecode(stringList);
+   
       List<PostModel> listPost = jsonList
           .map(
-            (e) => PostModel.fromJson(e),
+            (e){
+              return PostModel.fromJson(e as Map<String, dynamic>);
+            } 
           )
           .toList();
       return Future.value(listPost);
