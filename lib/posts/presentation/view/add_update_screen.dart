@@ -7,13 +7,13 @@ import 'package:post_2024/posts/presentation/logic/add_delete_update_post/add_de
 import 'package:post_2024/posts/presentation/logic/add_delete_update_post/add_delete_update_state.dart';
 
 import '../../../core/utils/snakbar_mssage.dart';
+import '../logic/add_delete_update_post/add_delete_update_event.dart';
 import '../widget/add_widget/form_widget.dart';
 
 class AddUpdateScreen extends StatelessWidget {
-  final bool isUpdate;
   final PostEntity? postEntity;
 
-  const AddUpdateScreen({super.key, this.isUpdate = false, this.postEntity});
+  const AddUpdateScreen({super.key, this.postEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +26,10 @@ class AddUpdateScreen extends StatelessWidget {
   _appBar() {
     return AppBar(
       title: Text(
-        isUpdate ? "Update" : "Add",
+        postEntity!=null ? "Update" : "Add",
         style: const TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
       ),
-      centerTitle: true,
-      backgroundColor: Colors.blue,
     );
   }
 
@@ -39,11 +37,11 @@ class AddUpdateScreen extends StatelessWidget {
     return BlocConsumer<AddDeleteUpdatePost, AddDeleteUpdateState>(
       listener: (context, state) {
         if (state is SuccessAddUpdateDeleteState) {
-       Navigator.pushNamed(context, AppRoute.homeScreen);
-       SnakeBarMessage.succeedMsg(context);
+       Navigator.pushNamedAndRemoveUntil(context, AppRoute.homeScreen,(route) => false,);
+       SnakeBarMessage.succeedMsg(context: context,msg: state.msg);
         }
         if (state is ErrorAddUpdateDeleteState) {
-          SnakeBarMessage.failMsg(context);
+          SnakeBarMessage.failMsg(context: context,msg: state.msg);
         }
 
       },
@@ -51,8 +49,15 @@ class AddUpdateScreen extends StatelessWidget {
         if (state is LoadingAddUpdateDeleteState) {
           return const LoadingWidget();
         }
-        return const FormWidget();
+
+        return FormWidget(postEntity: postEntity,);
       },
     );
   }
 }
+/*
+    return ElevatedButton(onPressed: (){
+          BlocProvider.of<AddDeleteUpdatePost>(context)
+              .add(AddEvent(post: PostEntity(title: "s", body: "body")));
+        }, child: Text("data"));
+ */

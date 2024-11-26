@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:post_2024/config/route/app_route.dart';
 import 'package:post_2024/posts/presentation/widget/home_widget/separated_widget.dart';
 
 import '../../../domain/entity/post_entity.dart';
@@ -24,6 +25,9 @@ class SucceedWidget extends StatelessWidget {
         ),
         subtitle: Text(list[index].body ?? "",
             style: const TextStyle(fontSize: 18, color: Colors.black26)),
+        onTap: (){
+          Navigator.pushNamed(context, AppRoute.postDetailsScreen,arguments: list[index]);
+        },
       ),
     );
   }

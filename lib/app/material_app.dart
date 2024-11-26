@@ -15,17 +15,20 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => di.sl<PostBloc>()..add(GetPostEvent())
-        ),
+            create: (context) => di.sl<PostBloc>()..add(GetPostEvent())),
         BlocProvider(
           create: (context) => di.sl<AddDeleteUpdatePost>(),
         ),
       ],
-      child:   const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoute.homeScreen,
         onGenerateRoute: AppRoute.onGenerateRoute,
-
+        theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                centerTitle: true,
+                backgroundColor: Colors.blue,
+                iconTheme: IconThemeData(color: Colors.white))),
       ),
     );
   }

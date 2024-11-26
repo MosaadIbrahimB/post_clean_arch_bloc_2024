@@ -21,7 +21,6 @@ class BodyWidget extends StatelessWidget {
           return  RefreshIndicator(
               onRefresh:()=> _refresh(context),
 
-
               child: SucceedWidget(list: state.post));
         }
         if (state is ErrorState) {

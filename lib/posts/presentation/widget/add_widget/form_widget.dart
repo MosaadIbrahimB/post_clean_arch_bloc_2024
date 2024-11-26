@@ -5,6 +5,7 @@ import 'package:post_2024/posts/presentation/widget/add_widget/text_form_widget.
 
 import '../../../domain/entity/post_entity.dart';
 import '../../logic/add_delete_update_post/add_delete_update_event.dart';
+import 'btn_widget.dart';
 
 class FormWidget extends StatefulWidget {
   final PostEntity? postEntity;
@@ -57,46 +58,19 @@ class _FormWidgetState extends State<FormWidget> {
                       title: titleControl.text, body: bodyControl.text);
                   bool valid = keyForm.currentState!.validate();
                   if (valid) {
+                  if(widget.postEntity==null){
                     BlocProvider.of<AddDeleteUpdatePost>(context)
                         .add(AddEvent(post: post));
+                  }else{
+                    BlocProvider.of<AddDeleteUpdatePost>(context)
+                        .add(UpdateEvent(post: post));
+                  }
                   }
                 },
-                child: const BtnWidget(),
+                child: BtnWidget(postEntity:widget.postEntity ,),
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class BtnWidget extends StatelessWidget {
-  const BtnWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * .35),
-      color: Colors.blue,
-      child: const Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            Text(
-              "add",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
-            ),
-          ],
         ),
       ),
     );
